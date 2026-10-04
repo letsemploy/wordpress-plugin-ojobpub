@@ -1,0 +1,49 @@
+# Local WordPress for developing and testing the plugin.
+# Start with `make up && make setup`, then open http://localhost:8080 (admin / admin).
+
+services:
+  db:
+    image: docker.io/library/mariadb:11
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    image: docker.io/library/wordpress:php8.3-apache
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: "1"
+    volumes:
+      - wordpress:/var/www/html
+      - .:/var/www/html/wp-content/plugins/ojobpub:ro
+
+  # WP-CLI. Runs as uid 33 like Apache in the wordpress image (the cli image defaults to 82).
+  cli:
+    image: docker.io/library/wordpress:cli-php8.3
+    user: "33:33"
+    depends_on:
+      - wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      HOME: /tmp
+    volumes:
+      - wordpress:/var/www/html
+      - .:/var/www/html/wp-content/plugins/ojobpub:ro
+
+volumes:
+  db:
+  wordpress:

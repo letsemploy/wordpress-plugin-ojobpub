@@ -1,0 +1,65 @@
+# Builds the plugin ZIP for every pushed tag and stores it as a workflow artifact.
+# The artifact holds the ojobpub/ folder; GitHub zips it on download, so the downloaded
+# ojobpub-<version>.zip is the installable plugin (same content as `make zip`).
+# Tag format: v<version>, matching the version in ojobpub.php and readme.txt (e.g. v0.2.1).
+
+name: Release ZIP
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that tag and plugin version match
+        id: version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header=$(sed -n 's/^ \* Version: *//p' ojobpub.php)
+          constant=$(sed -n "s/^define( 'OJOBPUB_VERSION', '\(.*\)' );/\1/p" ojobpub.php)
+          stable=$(sed -n 's/^Stable tag: *//p' readme.txt)
+          echo "tag=$tag header=$header constant=$constant stable=$stable"
+          if [ "$tag" != "$header" ] || [ "$tag" != "$constant" ] || [ "$tag" != "$stable" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match the versions in ojobpub.php and readme.txt"
+            exit 1
+          fi
+          echo "version=$tag" >> "$GITHUB_OUTPUT"
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer
+
+      - name: Install dev dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Download oJobPub schema
+        run: curl -fsSL https://raw.githubusercontent.com/letsemploy/schema/main/v1/ojobpub.json -o "$RUNNER_TEMP/ojobpub.json"
+
+      - name: Unit tests
+        env:
+          OJOBPUB_SCHEMA: ${{ runner.temp }}/ojobpub.json
+        run: vendor/bin/phpunit
+
+      - name: Coding standards
+        run: vendor/bin/phpcs
+
+      - name: Collect plugin files
+        run: |
+          mkdir -p dist/package/ojobpub
+          rsync -a --exclude-from=.distignore ./ dist/package/ojobpub/
+          find dist/package -type f | sort
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ojobpub-${{ steps.version.outputs.version }}
+          path: dist/package/
+          if-no-files-found: error

@@ -1,0 +1,502 @@
+# Copyright (C) 2026 oJobPub contributors
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: oJobPub 0.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ojobpub\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-04T11:32:45+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ojobpub\n"
+
+#. Plugin Name of the plugin
+#: ojobpub.php
+#: includes/Admin.php:35
+#: includes/Admin.php:244
+msgid "oJobPub"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: ojobpub.php
+msgid "https://docs.letsemploy.org"
+msgstr ""
+
+#. Description of the plugin
+#: ojobpub.php
+msgid "Publishes your job openings as an open oJobPub feed at /.well-known/ojobpub.json, so job boards and search engines can find them without an API key."
+msgstr ""
+
+#. Author of the plugin
+#: ojobpub.php
+msgid "oJobPub contributors"
+msgstr ""
+
+#: includes/Admin.php:45
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin.php:63
+msgid "Employer"
+msgstr ""
+
+#: includes/Admin.php:64
+msgid "Name"
+msgstr ""
+
+#: includes/Admin.php:65
+msgid "Headquarters city"
+msgstr ""
+
+#: includes/Admin.php:66
+msgid "Headquarters country"
+msgstr ""
+
+#: includes/Admin.php:67
+msgid "Industry"
+msgstr ""
+
+#: includes/Admin.php:67
+msgid "e.g. Software, Healthcare"
+msgstr ""
+
+#: includes/Admin.php:68
+msgid "Website"
+msgstr ""
+
+#: includes/Admin.php:70
+#: includes/PostType.php:62
+#: includes/PostType.php:67
+msgid "Jobs"
+msgstr ""
+
+#: includes/Admin.php:71
+msgid "Data source"
+msgstr ""
+
+#: includes/Admin.php:72
+msgid "Default language"
+msgstr ""
+
+#: includes/Admin.php:73
+msgid "Default country"
+msgstr ""
+
+#: includes/Admin.php:74
+msgid "Default job type"
+msgstr ""
+
+#: includes/Admin.php:76
+msgid "Delivery"
+msgstr ""
+
+#: includes/Admin.php:79
+#: includes/Admin.php:277
+msgid "Static file"
+msgstr ""
+
+#: includes/Admin.php:85
+msgid "Also write the feed as a file to /.well-known/ojobpub.json (for hosts that do not pass /.well-known/ to WordPress)."
+msgstr ""
+
+#: includes/Admin.php:90
+msgid "Google for Jobs"
+msgstr ""
+
+#: includes/Admin.php:96
+msgid "Add schema.org JobPosting data to job pages managed by this plugin."
+msgstr ""
+
+#: includes/Admin.php:130
+msgid "Published in the feed as the employer of all jobs."
+msgstr ""
+
+#: includes/Admin.php:163
+msgid "ISO 3166-1 alpha-2, e.g. CH, DE, AT"
+msgstr ""
+
+#: includes/Admin.php:165
+msgid "ISO 639-1, e.g. de, fr, en"
+msgstr ""
+
+#: includes/Admin.php:167
+msgid "Empty uses the value shown in grey."
+msgstr ""
+
+#. translators: %s: source name
+#: includes/Admin.php:181
+#, php-format
+msgid "%s (not active)"
+msgstr ""
+
+#: includes/Admin.php:186
+msgid "Where the jobs come from. Use an existing job plugin if your openings are already managed there."
+msgstr ""
+
+#: includes/Admin.php:199
+msgid "Used when a job does not state its type."
+msgstr ""
+
+#: includes/Admin.php:222
+msgid "Sorry, you are not allowed to do that."
+msgstr ""
+
+#: includes/Admin.php:245
+msgid "Publishes your job openings as an open, machine-readable feed at your own domain, so job boards and search engines can pick them up without an API key."
+msgstr ""
+
+#: includes/Admin.php:247
+msgid "Status"
+msgstr ""
+
+#: includes/Admin.php:250
+msgid "Feed URL"
+msgstr ""
+
+#: includes/Admin.php:254
+msgid "open"
+msgstr ""
+
+#: includes/Admin.php:259
+msgid "Jobs in feed"
+msgstr ""
+
+#: includes/Admin.php:263
+msgid "No feed: the employer name is missing."
+msgstr ""
+
+#. translators: %d: number of skipped jobs
+#: includes/Admin.php:268
+#, php-format
+msgid "%d job skipped because of missing data (run the check for details)."
+msgid_plural "%d jobs skipped because of missing data (run the check for details)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin.php:286
+msgid "Check feed"
+msgstr ""
+
+#: includes/Admin.php:304
+msgid "Get found"
+msgstr ""
+
+#. translators: 1: apex domain, 2: link to SourceTracker
+#: includes/Admin.php:309
+#, php-format
+msgid "Register %1$s once with %2$s. It checks the feed daily and passes it on to job boards and other consumers."
+msgstr ""
+
+#: includes/Labels.php:24
+msgid "Permanent"
+msgstr ""
+
+#: includes/Labels.php:25
+msgid "Contract"
+msgstr ""
+
+#: includes/Labels.php:26
+msgid "Temporary"
+msgstr ""
+
+#: includes/Labels.php:27
+msgid "Freelance"
+msgstr ""
+
+#: includes/Labels.php:28
+msgid "Internship"
+msgstr ""
+
+#: includes/Labels.php:29
+msgid "Apprenticeship"
+msgstr ""
+
+#: includes/Labels.php:30
+msgid "Volunteer"
+msgstr ""
+
+#: includes/Labels.php:41
+msgid "On-site"
+msgstr ""
+
+#: includes/Labels.php:42
+msgid "Hybrid"
+msgstr ""
+
+#: includes/Labels.php:43
+msgid "Remote"
+msgstr ""
+
+#: includes/Labels.php:54
+msgid "Junior"
+msgstr ""
+
+#: includes/Labels.php:55
+msgid "Mid-level"
+msgstr ""
+
+#: includes/Labels.php:56
+msgid "Senior"
+msgstr ""
+
+#: includes/Labels.php:57
+msgid "Lead"
+msgstr ""
+
+#: includes/Labels.php:58
+msgid "Manager"
+msgstr ""
+
+#: includes/Labels.php:59
+msgid "Director"
+msgstr ""
+
+#: includes/Labels.php:60
+msgid "Executive"
+msgstr ""
+
+#: includes/Labels.php:71
+msgid "per hour"
+msgstr ""
+
+#: includes/Labels.php:72
+msgid "per day"
+msgstr ""
+
+#: includes/Labels.php:73
+msgid "per week"
+msgstr ""
+
+#: includes/Labels.php:74
+msgid "per month"
+msgstr ""
+
+#: includes/Labels.php:75
+msgid "per year"
+msgstr ""
+
+#: includes/PostType.php:63
+msgid "Job"
+msgstr ""
+
+#: includes/PostType.php:64
+msgid "Add New Job"
+msgstr ""
+
+#: includes/PostType.php:65
+msgid "Edit Job"
+msgstr ""
+
+#: includes/PostType.php:66
+msgid "All Jobs"
+msgstr ""
+
+#: includes/PostType.php:93
+msgid "Job Categories"
+msgstr ""
+
+#: includes/PostType.php:94
+msgid "Job Category"
+msgstr ""
+
+#: includes/PostType.php:108
+msgid "Job Tags"
+msgstr ""
+
+#: includes/PostType.php:109
+msgid "Job Tag"
+msgstr ""
+
+#: includes/PostType.php:111
+msgid "Skills and technologies. Max. 16 per job, each up to 28 characters."
+msgstr ""
+
+#: includes/PostType.php:243
+msgid "oJobPub details"
+msgstr ""
+
+#: includes/PostType.php:277
+msgid "The job text above stays on this page. The feed only carries this summary plus a link here. The excerpt (or the beginning of the text) is used as the short description, max. 1000 characters."
+msgstr ""
+
+#: includes/PostType.php:281
+msgid "Job type"
+msgstr ""
+
+#: includes/PostType.php:285
+msgid "Locations"
+msgstr ""
+
+#: includes/PostType.php:288
+msgid "One per line: \"City, CC\" with a two-letter country code. Empty uses the default country from the settings."
+msgstr ""
+
+#: includes/PostType.php:292
+msgid "Work type"
+msgstr ""
+
+#: includes/PostType.php:296
+msgid "Experience level"
+msgstr ""
+
+#: includes/PostType.php:300
+msgid "Workload (%)"
+msgstr ""
+
+#: includes/PostType.php:302
+msgid "Minimum workload"
+msgstr ""
+
+#: includes/PostType.php:303
+msgid "Maximum workload"
+msgstr ""
+
+#: includes/PostType.php:307
+msgid "Salary"
+msgstr ""
+
+#: includes/PostType.php:309
+msgid "Minimum salary"
+msgstr ""
+
+#: includes/PostType.php:310
+msgid "Maximum salary"
+msgstr ""
+
+#: includes/PostType.php:311
+msgid "Currency (ISO 4217)"
+msgstr ""
+
+#: includes/PostType.php:312
+msgid "per …"
+msgstr ""
+
+#: includes/PostType.php:316
+msgid "Apply before"
+msgstr ""
+
+#: includes/PostType.php:319
+msgid "After this date the job is removed from the feed automatically."
+msgstr ""
+
+#: includes/PostType.php:323
+msgid "Start / end date"
+msgstr ""
+
+#: includes/PostType.php:325
+msgid "Start date"
+msgstr ""
+
+#: includes/PostType.php:326
+msgid "End date (fixed-term positions)"
+msgstr ""
+
+#: includes/PostType.php:330
+msgid "Language of the posting"
+msgstr ""
+
+#: includes/PostType.php:334
+msgid "Reference ID"
+msgstr ""
+
+#: includes/Self_Test.php:36
+msgid "The employer name is empty, so no feed can be generated."
+msgstr ""
+
+#. translators: %d: number of jobs
+#: includes/Self_Test.php:40
+#, php-format
+msgid "WordPress generates a valid feed with %d job."
+msgid_plural "WordPress generates a valid feed with %d jobs."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: job reference (post ID), 2: list of problems
+#: includes/Self_Test.php:46
+#, php-format
+msgid "Job %1$s is not published in the feed: %2$s"
+msgstr ""
+
+#: includes/Self_Test.php:51
+msgid "WordPress is installed in a sub-directory. The feed must be answered at the domain root; configure a redirect in the web server or enable the static file option."
+msgstr ""
+
+#. translators: 1: URL, 2: error message
+#: includes/Self_Test.php:70
+#, php-format
+msgid "The server could not fetch %1$s itself (%2$s). Many hosts block such loopback requests; please check the URL from outside, e.g. with curl."
+msgstr ""
+
+#. translators: 1: URL, 2: HTTP status code
+#: includes/Self_Test.php:78
+#, php-format
+msgid "%1$s answered with HTTP %2$d instead of 200."
+msgstr ""
+
+#. translators: 1: URL, 2: final URL
+#: includes/Self_Test.php:88
+#, php-format
+msgid "%1$s redirects to %2$s."
+msgstr ""
+
+#. translators: %s: content type
+#: includes/Self_Test.php:94
+#, php-format
+msgid "Content-Type is \"%s\"; application/json is recommended."
+msgstr ""
+
+#: includes/Self_Test.php:99
+msgid "The response is not an oJobPub document. Is a redirect pointing to a page instead of the feed?"
+msgstr ""
+
+#. translators: %s: URL
+#: includes/Self_Test.php:106
+#, php-format
+msgid "%s delivers the current feed."
+msgstr ""
+
+#: includes/Self_Test.php:108
+msgid "The public feed differs from the current one (older lastUpdated). A page cache, CDN or an outdated static file may be serving a stale copy."
+msgstr ""
+
+#: includes/Self_Test.php:110
+msgid "The public feed differs from the one WordPress generates. Another file or rule may be answering this URL."
+msgstr ""
+
+#: includes/Sources/Job_Postings_Source.php:51
+msgid "Job Postings"
+msgstr ""
+
+#: includes/Sources/Native_Source.php:30
+msgid "Jobs managed by this plugin"
+msgstr ""
+
+#: includes/Sources/WP_Job_Manager_Source.php:41
+msgid "WP Job Manager"
+msgstr ""
+
+#: includes/Static_File.php:94
+msgid "No direct filesystem access; the static file cannot be written."
+msgstr ""
+
+#. translators: %s: directory path
+#: includes/Static_File.php:100
+#, php-format
+msgid "Could not create %s."
+msgstr ""
+
+#. translators: %s: file path
+#: includes/Static_File.php:107
+#, php-format
+msgid "%s exists and was not written by this plugin; it was left untouched."
+msgstr ""
+
+#. translators: %s: file path
+#: includes/Static_File.php:112
+#, php-format
+msgid "Could not write %s."
+msgstr ""
