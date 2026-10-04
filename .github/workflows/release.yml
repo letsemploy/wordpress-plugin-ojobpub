@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check that tag and plugin version match
         id: version
@@ -58,7 +58,7 @@ jobs:
           rsync -a --exclude-from=.distignore ./ dist/package/ojobpub/
           find dist/package -type f | sort
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ojobpub-${{ steps.version.outputs.version }}
           path: dist/package/
