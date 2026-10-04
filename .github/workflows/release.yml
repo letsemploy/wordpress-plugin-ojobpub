@@ -1,6 +1,7 @@
 # Publishes a GitHub release with the installable plugin ZIP for every pushed tag.
 # Tag format: v<version>, matching the version in ojobpub.php and readme.txt (e.g. v0.2.1).
 # The release notes are the matching changelog entry from readme.txt.
+# Plugin Check (the wordpress.org review tool) must pass before anything is published.
 
 name: Release
 
@@ -53,6 +54,17 @@ jobs:
 
       - name: Build ZIP
         run: make zip
+
+      # Check exactly what gets released, with the same tool as the wordpress.org review.
+      # Errors fail the job, so no release is published.
+      - name: Unpack ZIP for Plugin Check
+        run: unzip -q "dist/ojobpub-${{ steps.version.outputs.version }}.zip" -d dist/check
+
+      - name: Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: dist/check/ojobpub
+          slug: ojobpub
 
       - name: Extract release notes from readme.txt
         run: |

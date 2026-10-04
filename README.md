@@ -36,6 +36,7 @@ On GitHub, pushing a tag `v<version>` (e.g. `git tag v0.2.1 && git push origin v
 
 - It checks that the tag matches all three version fields.
 - It runs the unit tests and PHPCS.
+- It runs [Plugin Check](https://wordpress.org/plugins/plugin-check/) on the contents of the ZIP. Any error stops the release.
 - It publishes a GitHub release with `ojobpub-<version>.zip` attached. The release notes are the matching changelog entry from `readme.txt`.
 
 Releases: https://github.com/letsemploy/wordpress-plugin-ojobpub/releases
