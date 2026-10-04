@@ -67,7 +67,7 @@ phpcs: vendor
 	$(PHP_RUN) vendor/bin/phpcs
 
 plugin-check:
-	$(WP) plugin check ojobpub --exclude-directories=vendor,tests,dist,bin --exclude-files=.phpunit.result.cache,compose.yaml,Makefile,composer.json,composer.lock,phpunit.xml.dist,phpcs.xml.dist,.distignore,.gitignore $(ARGS)
+	$(WP) plugin check ojobpub --exclude-directories=.github,vendor,tests,dist,bin --exclude-files=.phpunit.result.cache,compose.yaml,Makefile,composer.json,composer.lock,phpunit.xml.dist,phpcs.xml.dist,.distignore,.gitignore $(ARGS)
 
 feed:
 	@curl -fsS $(URL)/.well-known/ojobpub.json
