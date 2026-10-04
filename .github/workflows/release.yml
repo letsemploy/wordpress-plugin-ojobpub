@@ -1,0 +1,74 @@
+# Publishes a GitHub release with the installable plugin ZIP for every pushed tag.
+# Tag format: v<version>, matching the version in ojobpub.php and readme.txt (e.g. v0.2.1).
+# The release notes are the matching changelog entry from readme.txt.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that tag and plugin version match
+        id: version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header=$(sed -n 's/^ \* Version: *//p' ojobpub.php)
+          constant=$(sed -n "s/^define( 'OJOBPUB_VERSION', '\(.*\)' );/\1/p" ojobpub.php)
+          stable=$(sed -n 's/^Stable tag: *//p' readme.txt)
+          echo "tag=$tag header=$header constant=$constant stable=$stable"
+          if [ "$tag" != "$header" ] || [ "$tag" != "$constant" ] || [ "$tag" != "$stable" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match the versions in ojobpub.php and readme.txt"
+            exit 1
+          fi
+          echo "version=$tag" >> "$GITHUB_OUTPUT"
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer
+
+      - name: Install dev dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Download oJobPub schema
+        run: curl -fsSL https://raw.githubusercontent.com/letsemploy/schema/main/v1/ojobpub.json -o "$RUNNER_TEMP/ojobpub.json"
+
+      - name: Unit tests
+        env:
+          OJOBPUB_SCHEMA: ${{ runner.temp }}/ojobpub.json
+        run: vendor/bin/phpunit
+
+      - name: Coding standards
+        run: vendor/bin/phpcs
+
+      - name: Build ZIP
+        run: make zip
+
+      - name: Extract release notes from readme.txt
+        run: |
+          awk -v v="= ${{ steps.version.outputs.version }} =" '
+            $0 == v { found = 1; next }
+            found && /^= / { exit }
+            found { print }
+          ' readme.txt > "$RUNNER_TEMP/notes.md"
+          cat "$RUNNER_TEMP/notes.md"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/ojobpub-${{ steps.version.outputs.version }}.zip" \
+            --title "oJobPub ${{ steps.version.outputs.version }}" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            --verify-tag
