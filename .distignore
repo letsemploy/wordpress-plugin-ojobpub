@@ -17,3 +17,5 @@
 /.phpunit.result.cache
 /.phpunit.cache
 /README.md
+/CLAUDE.md
+/.claude

@@ -38,6 +38,11 @@ On GitHub, pushing a tag `v<version>` (e.g. `git tag v0.2.1 && git push origin v
 - It runs the unit tests and PHPCS.
 - It runs [Plugin Check](https://wordpress.org/plugins/plugin-check/) on the contents of the ZIP. Any error stops the release.
 - It publishes a GitHub release with `ojobpub-<version>.zip` attached. The release notes are the matching changelog entry from `readme.txt`.
+- It commits the same ZIP contents to `trunk/` of the [wordpress.org SVN repository](https://plugins.svn.wordpress.org/ojobpub/) and copies them to `tags/<version>/`. An existing SVN tag is never overwritten. This job can be re-run on its own if the SVN commit fails.
+
+Every push to `main` also syncs `trunk/` ([.github/workflows/wordpress-org.yml](.github/workflows/wordpress-org.yml)). This sync does not run tests. Banners, icons and screenshots go in `.wordpress-org/`, which is published to the SVN `assets/` directory. Both workflows use [bin/svn-deploy.sh](bin/svn-deploy.sh) and need the repository secret `SVN_PASSWORD`, which is the SVN password of the wordpress.org user `letsemploy` (set under *Account & Security* in the wordpress.org profile).
+
+wordpress.org serves `tags/<Stable tag>` as read from `trunk/readme.txt`. If `main` raises `Stable tag` before the matching tag exists, wordpress.org serves `trunk/` in the meantime, so push the tag right after the version bump.
 
 Releases: https://github.com/letsemploy/wordpress-plugin-ojobpub/releases
 
