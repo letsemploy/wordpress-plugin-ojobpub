@@ -1,0 +1,38 @@
+# Mirrors main to trunk/ of the wordpress.org SVN repository (and .wordpress-org/ to assets/).
+# Release tags go to tags/<version>/ via release.yml.
+# Requires the repository secret SVN_PASSWORD for the wordpress.org user letsemploy.
+
+name: wordpress.org trunk
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-svn
+  cancel-in-progress: false
+
+jobs:
+  trunk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Subversion
+        run: sudo apt-get update -q && sudo apt-get install -yq subversion
+
+      - name: Build ZIP
+        run: make zip
+
+      - name: Unpack ZIP
+        run: unzip -q dist/ojobpub-*.zip -d dist/build
+
+      - name: Deploy to trunk
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: bin/svn-deploy.sh dist/build/ojobpub

@@ -2,6 +2,8 @@
 # Tag format: v<version>, matching the version in ojobpub.php and readme.txt (e.g. v0.2.1).
 # The release notes are the matching changelog entry from readme.txt.
 # Plugin Check (the wordpress.org review tool) must pass before anything is published.
+# Afterwards the same ZIP goes to trunk/ and tags/<version>/ of the wordpress.org SVN repository
+# (requires the repository secret SVN_PASSWORD for the wordpress.org user letsemploy).
 
 name: Release
 
@@ -16,6 +18,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -66,6 +70,11 @@ jobs:
           build-dir: dist/check/ojobpub
           slug: ojobpub
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist/ojobpub-${{ steps.version.outputs.version }}.zip
+
       - name: Extract release notes from readme.txt
         run: |
           awk -v v="= ${{ steps.version.outputs.version }} =" '
@@ -84,3 +93,31 @@ jobs:
             --title "oJobPub ${{ steps.version.outputs.version }}" \
             --notes-file "$RUNNER_TEMP/notes.md" \
             --verify-tag
+
+  # Separate job so it can be re-run on its own if the SVN commit fails.
+  wordpress-org:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: wordpress-org-svn
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Subversion
+        run: sudo apt-get update -q && sudo apt-get install -yq subversion
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist
+
+      - name: Unpack ZIP
+        run: unzip -q "dist/ojobpub-${{ needs.build.outputs.version }}.zip" -d dist/build
+
+      - name: Deploy to trunk and tags/${{ needs.build.outputs.version }}
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: bin/svn-deploy.sh dist/build/ojobpub "${{ needs.build.outputs.version }}"
