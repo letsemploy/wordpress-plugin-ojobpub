@@ -70,7 +70,7 @@ jobs:
           build-dir: dist/check/ojobpub
           slug: ojobpub
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: plugin-zip
           path: dist/ojobpub-${{ steps.version.outputs.version }}.zip
@@ -104,12 +104,12 @@ jobs:
       group: wordpress-org-svn
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Subversion
         run: sudo apt-get update -q && sudo apt-get install -yq subversion
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: plugin-zip
           path: dist
